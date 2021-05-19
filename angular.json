@@ -1,5 +1,8 @@
 {
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+  "cli": {
+    "analytics": "0a5f4211-ee40-48cf-8cb4-dac57079e592"
+  },
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
@@ -30,7 +33,7 @@
             "styles": [
               "src/styles.css"
             ],
-            "scripts": []
+            "scripts": ["node_modules/jquery/dist/jquery.min.js"]
           },
           "configurations": {
             "production": {
@@ -65,7 +68,8 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "domain:build"
+            "browserTarget": "domain:build",
+            "proxyConfig": "src/proxy.config.json"
           },
           "configurations": {
             "production": {
@@ -93,7 +97,7 @@
             "styles": [
               "src/styles.css"
             ],
-            "scripts": []
+            "scripts": ["node_modules/jquery/dist/jquery.min.js"]
           }
         },
         "lint": {
