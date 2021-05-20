@@ -32,5 +32,12 @@ export class ConnectService {
       )
     )
   }
+  delete(Id:any){
+    return this.http.post(`api/Domains/DeleteDomain`,Id).pipe(
+      map((data)=>{
+        return data;
+    })
+    )
+  }
 
 }

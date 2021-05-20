@@ -21,7 +21,7 @@ export class AppComponent implements OnInit {
     smtpaddress:string=""
     password:string=""
 
-    
+    req_of_update=false;
     
 
     ngOnInit() {
@@ -37,15 +37,29 @@ export class AppComponent implements OnInit {
     // convenience getter for easy access to form fields
     get f() { return this.registerForm.controls; }
 
+    check(){
+      this.req_of_update=true;
+      this.registerForm = this.formBuilder.group({
+        url: [this.Domain, Validators.required],
+        smtp: [this.SmtpAddress, Validators.required],
+        email: [this.Email, [Validators.required, Validators.email]],
+        password: ['', [Validators.nullValidator]]
+    });
+    }
+
     onSubmit() {
         this.submitted = true;
 
         // stop here if form is invalid
-        if (this.registerForm.invalid) {
-            return;
-        }
-       this.add()
-        
+      if (this.registerForm.invalid) {
+        return;
+      }
+       
+       if(this.req_of_update==true)
+          this.update()
+       else
+          this.add()
+       
     }
     Password:any
     Email:any
@@ -101,6 +115,24 @@ export class AppComponent implements OnInit {
           });
           
           
+    }
+    delete(Id:any,url:any){
+      this.connservice.delete(Id).subscribe(async(res:any)=>{
+        if(res==false)
+            alert("Failed To Delete")
+            else
+            {alert(`Domain name : ${url} Deleted`)
+            window.location.reload();}
+      }
+      ,(err: any)=>{
+        alert('Failed To Delete')
+        console.log('err',err)}
+      )
+      
+      //console.log(this.users[0].domain);
+      
+      
+    
     }
     get(){
       this.connservice.getdomains().subscribe(async (res:any)=>{

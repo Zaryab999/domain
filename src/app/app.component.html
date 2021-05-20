@@ -1,7 +1,8 @@
 <!-- main app container -->
-<html style="padding-top: 0px;">
+<!doctype html >
+<html   >
     <body >
-<h2 class="h2">Add Or Update Domain</h2>
+<h1 class="h1">Add Or Update Domain</h1>
 <div class="jumbotron">
   <div >
       <div class="row">
@@ -10,39 +11,39 @@
               <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
                 <div style="display: flex;">
                 <div class="form-group" >
-                      <label>URL</label>&nbsp;&nbsp;
-                      <input type="text" (change)="changedomain($event)" style="border-style: solid;border-radius: 4px;width:250px;color: rgb(248, 48, 12);"formControlName="url" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.url.errors }"  ngModel={{domain}} />
-                      <div *ngIf="submitted && f.url.errors" class="invalid-feedback">
+                      <label style="font-weight: 1000;">URL</label>&nbsp;&nbsp;
+                      <input type="text"  (change)="changedomain($event)" style="border-style: solid;border-radius: 4px;width:250px;color: rgb(248, 48, 12);"formControlName="url" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.url.errors }" placeholder="Enter Valid URL" ngModel={{domain}} />
+                      <div *ngIf="submitted && f.url.errors " class="invalid-feedback">
                           <div *ngIf="f.url.errors.required">First Name is required</div>
                 </div>
                   </div>&nbsp;&nbsp;
                   <div class="form-group">
-                      <label>SMTP</label>&nbsp;&nbsp;
-                      <input type="text" (change)="changesmtp($event)" style="border-style: solid;border-radius: 4px;width:180px;color: rgb(248, 48, 12);" formControlName="smtp" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.smtp.errors }"  ngModel={{smtpaddress}}/>
+                      <label style="font-weight: 1000;">SMTP</label>&nbsp;&nbsp;
+                      <input type="text" (change)="changesmtp($event)" style="border-style: solid;border-radius: 4px;width:190px;color: rgb(248, 48, 12);padding-right: 10px;" formControlName="smtp" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.smtp.errors }" placeholder="Enter Smtp Address" ngModel={{smtpaddress}}/>
                       <div *ngIf="submitted && f.smtp.errors" class="invalid-feedback">
-                          <div *ngIf="f.smtp.errors.required">Last Name is required</div>
+                          <div *ngIf="f.smtp.errors.required ">Last Name is required</div>
                       </div>
                   </div>&nbsp;&nbsp;
                   <div class="form-group">
-                      <label>Email</label>&nbsp;&nbsp;
-                      <input type="text" (change)="changeemail($event)" style="border-style: solid;border-radius: 4px;width:180px;color: rgb(248, 48, 12);" formControlName="email" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.email.errors }" ngModel={{email}}/>
+                      <label style="font-weight: 1000;">Email</label>&nbsp;&nbsp;
+                      <input type="text" (change)="changeemail($event)" style="border-style: solid;border-radius: 4px;width:190px;color: rgb(248, 48, 12);padding-right: 10px;" formControlName="email" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.email.errors }" placeholder="Enter Valid Email"ngModel={{email}}/>
                       <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
                           <div *ngIf="f.email.errors.required">Email is required</div>
                           <div *ngIf="f.email.errors.email">Email must be a valid email address</div>
                       </div>
                   </div>&nbsp;&nbsp;&nbsp;
                   <div class="form-group">
-                      <label>Password</label>&nbsp;&nbsp;
-                      <input type="password" (change)="changepass($event)" style="border-style: solid;border-radius: 4px;width:180px;color: rgb(248, 48, 12);" formControlName="password" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.password.errors }"  />
+                      <label style="font-weight: 1000;">Password</label>&nbsp;&nbsp;
+                      <input type="password" (change)="changepass($event)" style="border-style: solid;border-radius: 4px;width:180px;color: rgb(248, 48, 12);" formControlName="password" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.password.errors }" placeholder="Enter Password" />
                       <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
-                          <div *ngIf="f.password.errors.required">Password is required</div>
-                          <div *ngIf="f.password.errors.minlength">Password must be at least 3 characters</div>
+                          <div *ngIf="f.password.errors.required && req_of_update==false">Password is required</div>
+                          <div *ngIf="f.password.errors.minlength && req_of_update==false">Password must be at least 3 characters</div>
                       </div>
                   </div>&nbsp;&nbsp;
                 </div> 
-                  <div class="form-group" style="margin-left: 00px;margin-top: 20px;">
-                      <button class="btn btn-primary" style="width: 50px;" >Add</button>&nbsp;&nbsp;
-                      <button class="btn btn-primary"(click)="update()" >Update</button>
+                  <div class="form-group" style="margin-left: 44px;margin-top: 25px;">
+                      <button class="btn btn-primary" style="width: 70px;font-weight: 600;" >Add</button>&nbsp;&nbsp;
+                      <button class="btn btn-primary"style="width: 80px;font-weight: 600;" (click)="check();" >Update</button>
                   </div>
 
               </form>
@@ -72,18 +73,20 @@
         
         <tr *ngFor="let user of users" >
             <td class="col">{{ user.id }}</td>
-            <td style="padding-right: 20px;">{{ user.domain }}</td>
-            <td>{{ user.email }}</td>
-            <td>{{ user.smtpAddress }}</td>
+            <td >{{ user.domain }}</td>
+            <td style="padding-right: 20px;">{{ user.email }}</td>
+            <td style="padding-right: 20px;" >{{ user.smtpAddress }}</td>
             <td><button (click)="filldata(user.domain,user.email,user.smtpAddress,user.password,user.id)" >Update</button></td>
+            <!-- <td><button (click)="delete(user.id,user.domain)" >Delete</button></td> -->
         </tr>
       </tbody>
     </table> 
   
   </div>
+  <!-- <input id="txt" type="text" onkeypress="this.style.width = ((this.value.length + 1) * 8) + 'px';"> -->
 
 </body>
-  </html>
+</html>
 
 
 
